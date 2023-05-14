@@ -1,0 +1,27 @@
+{% extends 'users/base.html' %}
+{% block title %}
+    Register
+{% endblock title %}
+{% block content %}
+    <h1>Register</h1>
+    <form method="POST">{% csrf_token %}
+        {% for element in form %}
+            <label>
+                {% if element.label == 'Username' %}
+                    <input type="text" name="{{ element.name }}" placeholder="{{ element.label }}">
+                {% else %}
+                    <input type="password" name="{{ element.name }}" placeholder="{{ element.label }}">
+                {% endif %}
+            </label>
+        {% endfor %}
+        <input class="button" type="submit" value="Register">
+    </form>
+    {% for field in form %}
+        {% for error in field.errors %}
+            {% if error != 'This field is required.' %}
+                {{ error }}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% endblock content %}
