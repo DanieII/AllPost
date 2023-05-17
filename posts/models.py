@@ -21,3 +21,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    content = models.TextField()

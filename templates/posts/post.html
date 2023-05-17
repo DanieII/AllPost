@@ -9,5 +9,6 @@
     {% for tag in post.tags.all %}
         <p>{{ tag }}</p>
     {% endfor %}
+    <a href="{% url 'comment' post.pk %}">Add comment</a>
 </body>
 </html>
