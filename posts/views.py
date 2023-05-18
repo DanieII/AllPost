@@ -18,11 +18,25 @@ def posts(request):
 
 def post_details(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
+    # Handling the comment form
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            post = Post.objects.get(pk=pk)
+            comment = Comments.objects.create(user=request.user, post=post, content=content)
+            comment.save()
+    else:
+        form = CommentForm()
+
     context = {
         'post': post,
-        'comments': Comments.objects.filter(post=post)
+        'comments': Comments.objects.filter(post=post),
+        'form': form
     }
-    return render(request, 'posts/post.html', context)
+
+    return render(request, 'posts/post.html', context=context)
 
 
 class PostUpdateView(UpdateView):
@@ -54,18 +68,3 @@ class PostCreateView(CreateView):
 class PostDeleteView(DeleteView):
     model = Post
     success_url = reverse_lazy('posts')
-
-
-def comment(request, pk):
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            content = form.cleaned_data['content']
-            post = Post.objects.get(pk=pk)
-            comment = Comments.objects.create(user=request.user, post=post, content=content)
-            comment.save()
-            return redirect(reverse('post', kwargs={'pk': pk}))
-    else:
-        form = CommentForm()
-
-    return render(request, 'posts/comment.html', context={'form': form})
