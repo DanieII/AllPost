@@ -1,0 +1,27 @@
+textarea {
+    font-family: 'Noto Sans Nandinagari', sans-serif;
+    resize: none;
+}
+
+#post {
+    padding: 20px;
+    border: 1px solid black;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#post div:nth-of-type(1) * {
+    display: inline-block;
+}
+
+#post div:nth-of-type(1) {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+}
+
+#comments > div {
+    border: 1px solid black;
+}

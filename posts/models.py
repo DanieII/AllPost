@@ -26,4 +26,5 @@ class Tag(models.Model):
 class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    # created = models.DateTimeField(auto_now_add=True)
     content = models.TextField()

@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/posts/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% block styles %}
+    {% endblock styles %}
+</head>
+<body>
+    {% if messages %}
+        <div id="messages">
+            {% for message in messages %}
+                <div class="message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div id="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+<script src="{% static 'scripts/hide_messages.js' %}" crossorigin="anonymous"></script>
+</html>

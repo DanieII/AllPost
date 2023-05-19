@@ -1,0 +1,33 @@
+#create-button:hover {
+    transition: transform 0.2s;
+    transform: rotateZ(360deg);
+}
+
+.post {
+    width: 20vw;
+    background-color: white;
+    border-radius: 1px;
+    border: 1px solid black;
+}
+
+.post-content {
+    padding: 5%;
+}
+
+.post:hover {
+    transition: filter 0.2s ease-in;
+    filter: brightness(90%);
+}
+
+a {
+    text-decoration: none;
+}
+
+.owner-actions {
+    float: right;
+    margin-right: 5px;
+}
+
+#container {
+    border: none;
+}
