@@ -1,5 +1,4 @@
 const messages = document.querySelectorAll('.message');
-console.log(messages);
 
 if (messages.length > 0){
     messages.forEach((message) => {

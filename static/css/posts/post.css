@@ -1,3 +1,16 @@
+form {
+    display: none;
+}
+
+.form-active {
+    display: flex;
+    flex-direction: column;
+}
+
+.fa-comment {
+    font-size: 18px;
+}
+
 textarea {
     font-family: 'Noto Sans Nandinagari', sans-serif;
     resize: none;
@@ -10,18 +23,28 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 40vw;
 }
 
-#post div:nth-of-type(1) * {
+p, h1 {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+#title * {
     display: inline-block;
 }
 
-#post div:nth-of-type(1) {
+#title {
     display: flex;
     align-items: center;
     gap: 5%;
 }
 
-#comments > div {
-    border: 1px solid black;
+#comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: wrap;
 }
