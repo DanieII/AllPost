@@ -1,9 +1,26 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
+
+from users.forms import LoginForm
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            login(request, User.objects.get(username=form.cleaned_data['username']))
+    else:
+        form = LoginForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'users/login.html', context=context)
 
 
 class Login(LoginView):

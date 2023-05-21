@@ -31,3 +31,13 @@ a {
 #container {
     border: none;
 }
+
+#container > button {
+    padding: 6px;
+    margin-bottom: 20px;
+    border: none;
+}
+
+#container > button:hover {
+    border: 1px solid black;
+}

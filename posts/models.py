@@ -7,7 +7,6 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self):
         return self.title
@@ -16,15 +15,8 @@ class Post(models.Model):
         ordering = ['-created']
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class Comments(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
     # created = models.DateTimeField(auto_now_add=True)
     content = models.TextField()

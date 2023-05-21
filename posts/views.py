@@ -1,10 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
-from django.views.generic import UpdateView, CreateView
 from django.contrib import messages
 
-from posts.forms import CommentForm
+from posts.forms import CommentForm, CreateUpdatePostForm
 from posts.models import Post, Comments
 
 
@@ -18,9 +16,11 @@ def posts(request):
 
 
 def delete_post(request, pk):
-    post = Post.objects.get(pk=pk)
-    post.delete()
-    messages.success(request, f"{post.title} deleted successfully")
+    post = get_object_or_404(Post, pk=pk)
+    if request.user == post.user:
+        post.delete()
+        messages.success(request, f"{post.title} deleted successfully")
+
     return redirect('posts')
 
 
@@ -49,27 +49,54 @@ def post_details(request, pk):
     return render(request, 'posts/post.html', context=context)
 
 
-class PostUpdateView(UpdateView):
-    model = Post
-    fields = ['title', 'content', 'tags']
-    success_url = reverse_lazy('posts')
+def update_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.user == post.user:
+        if request.method == 'POST':
+            changed = []
+            form = CreateUpdatePostForm(request.POST)
+            if form.is_valid():
+                new_fields = form.cleaned_data
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['action'] = 'Update'
-        return context
+                for field_name in new_fields:
+                    field_value = new_fields[field_name]
+                    old_value = getattr(post, field_name)
+
+                    if field_value != old_value:
+                        setattr(post, field_name, field_value)
+                        changed.append(field_name)
+
+                post.save()
+                if changed:
+                    messages.success(request, f'Changed: {", ".join(changed)}')
+                else:
+                    messages.warning(request, 'Nothing changed')
+
+                return redirect('posts')
+        else:
+            form = CreateUpdatePostForm()
+    else:
+        return redirect('posts')
+
+    context = {
+        'form': form,
+        'action': 'Update'
+    }
+    return render(request, 'posts/post_form.html', context=context)
 
 
-class PostCreateView(CreateView):
-    model = Post
-    fields = ['title', 'content', 'tags']
-    success_url = reverse_lazy('posts')
+def create_post(request):
+    if request.method == 'POST':
+        form = CreateUpdatePostForm(request.POST)
+        if form.is_valid():
+            post = Post.objects.create(user=request.user, **form.cleaned_data)
+            post.save()
+            return redirect('posts')
+    else:
+        form = CreateUpdatePostForm()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['action'] = 'Create'
-        return context
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(PostCreateView, self).form_valid(form)
+    context = {
+        'form': form,
+        'action': 'Create'
+    }
+    return render(request, 'posts/post_form.html', context=context)

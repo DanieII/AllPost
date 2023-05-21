@@ -5,14 +5,13 @@
 {% block content %}
     <h1>Login</h1>
     <form method="POST">{% csrf_token %}
-        {% for i in form %}
-            <label>
-                {% if i.label == 'Username' %}
-                    <input type="text" name="{{ i.name }}" placeholder="{{ i.label }}">
-                {% else %}
-                    <input type="password" name="{{ i.name }}" placeholder="{{ i.label }}">
-                {% endif %}
-            </label>
+        {% for element in form %}
+            {{ element }}
+            {% if element.errors %}
+                {% for error in element.errors %}
+                    <p style="color:red; display: inline-block; text-align: center">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
         {% endfor %}
         <input class="button" type="submit" value="Login">
     </form>

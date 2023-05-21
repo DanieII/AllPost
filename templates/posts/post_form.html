@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ action }}</title>
-</head>
-<body>
-    {% include 'posts/navbar.html' %}
+{% extends 'posts/base.html' %}
+{% load static %}
+{% block title %}
+    {{ action }}
+{% endblock title %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/posts/create-update-form.css' %}">
+{% endblock styles %}
+{% block content %}
     <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-    <input type="submit" value={{ action }}>
-</form>
-</body>
-</html>
+        {% for element in form %}
+            {{ element.label }}
+            {{ element }}
+        {% endfor %}
+        <input type="submit" value={{ action }}>
+    </form>
+{% endblock content %}
