@@ -23,21 +23,29 @@ a {
     text-decoration: none;
 }
 
-.owner-actions {
-    float: right;
-    margin-right: 5px;
-}
-
 #container {
     border: none;
 }
 
-#container > button {
-    padding: 6px;
+#logout {
+    height: 35px;
     margin-bottom: 20px;
+}
+
+#logout > button {
+    padding: 10px;
     border: none;
 }
 
-#container > button:hover {
+#logout > button:hover {
     border: 1px solid black;
+}
+
+#bottom {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#owner-actions {
+    margin-left: auto;
 }

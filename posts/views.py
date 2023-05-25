@@ -49,7 +49,7 @@ def post_details(request, pk):
     return render(request, 'posts/post.html', context=context)
 
 
-def update_post(request, pk):
+def edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.user == post.user:
         if request.method == 'POST':
@@ -74,13 +74,13 @@ def update_post(request, pk):
 
                 return redirect('posts')
         else:
-            form = CreateUpdatePostForm()
+            form = CreateUpdatePostForm(instance=post)
     else:
         return redirect('posts')
 
     context = {
         'form': form,
-        'action': 'Update'
+        'action': 'Edit'
     }
     return render(request, 'posts/post_form.html', context=context)
 

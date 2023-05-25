@@ -6,6 +6,7 @@
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/posts/create-update-form.css' %}">
 {% endblock styles %}
+
 {% block content %}
     <form method="post">{% csrf_token %}
         {% for element in form %}

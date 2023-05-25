@@ -8,20 +8,24 @@
 {% endblock styles %}
 
 {% block content %}
-    <button onclick="location.href='{% url 'logout' %}'"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> Logout</button>
+    <div id="logout">
+        <button onclick="location.href='{% url 'logout' %}'"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> Logout</button>
+    </div>
     <a href="{% url 'create' %}" style="font-size: 20px; margin-bottom: 20px"><i class="fa-solid fa-plus" style="color: white;" id="create-button"></i></a>
     <div id="posts">
         {% for post in posts %}
         <div class="post" onclick="location.href='{% url 'post' post.id %}'">
             <div class="post-content">
                 <p style="margin-bottom: 10px">{{ post }}</p>
-                <p style="font-size: 12px; display: inline-block;">Posted by {{ post.user }}</p>
-                {% if post.user == request.user %}
-                    <div class="owner-actions">
-                        <a href="{% url 'update' post.id %}"><i class="fa-solid fa-pen" style="color: black;"></i></a>
-                        <a href="{% url 'delete' post.id %}"><i class="fa-solid fa-trash" style="color: black;"></i></a>
-                    </div>
-                {% endif %}
+                <div id="bottom">
+                    <p style="font-size: 12px; display: inline-block;">Posted by {{ post.user }}</p>
+                    {% if post.user == request.user %}
+                        <div id="owner-actions">
+                            <a href="{% url 'update' post.id %}"><i class="fa-solid fa-pen" style="color: black;"></i></a>
+                            <a href="{% url 'delete' post.id %}"><i class="fa-solid fa-trash" style="color: black;"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
         {% endfor %}

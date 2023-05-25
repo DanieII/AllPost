@@ -1,5 +1,20 @@
 form {
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: 20px;
+}
+
+input[type='submit'] {
+    background: linear-gradient(to right, cornflowerblue, lightsteelblue);
+    border: none;
+    padding: 5px;
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+input[type='submit']:hover {
+    color: white;
 }

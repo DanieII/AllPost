@@ -39,3 +39,8 @@ body {
     transition: color 1s;
     color: transparent;
 }
+
+textarea {
+    resize: none;
+    font-family: 'Noto Sans Nandinagari', sans-serif;
+}

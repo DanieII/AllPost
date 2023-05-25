@@ -5,7 +5,7 @@ from django.db import models
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
-    content = models.TextField(blank=True)
+    content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -18,5 +18,4 @@ class Post(models.Model):
 class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
-    # created = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
