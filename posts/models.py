@@ -15,7 +15,8 @@ class Post(models.Model):
         ordering = ['-created']
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
     content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)

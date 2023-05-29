@@ -41,6 +41,8 @@ class RegisterForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Username already exists')
 
         for message, validation in self.username_validations.items():
             if not validation(username):

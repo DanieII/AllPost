@@ -1,4 +1,5 @@
 {% extends 'posts/base.html' %}
+{% load comment_created_time %}
 {% load static %}
 {% block title %}
     {{ post.title }}
@@ -13,11 +14,6 @@
             <a href="{% url 'posts' %}"><i class="fa-solid fa-arrow-left" style="color: #000000; font-size: 17px"></i></a>
             <h1>{{ post.title }}</h1>
         </div>
-        <div id="tags">
-            {% for tag in post.tags.all %}
-            <p>{{ tag }}</p>
-            {% endfor %}
-        </div>
         <p style="font-weight: bold">{{ post.content }}</p>
         <i class="fa-solid fa-comment" style="color: #000000;"></i>
         <form method="POST">{% csrf_token %}
@@ -29,7 +25,11 @@
         <div id="comments">
             {% for comment in comments %}
                 <div class="comment">
-                    <p>{{ comment.user }}</p>
+                    <p>{{ comment.user }} on {{ comment.created|format_time }}
+                        {% if comment.user == request.user %}
+                            <a href="{% url 'delete comment' post.id comment.id %}"><i class="fa-solid fa-trash" style="color: black;"></i></a>
+                        {% endif %}
+                    </p>
                     <p>{{ comment.content }}</p>
                 </div>
             {% endfor %}

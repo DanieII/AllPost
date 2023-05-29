@@ -11,3 +11,7 @@ class CreateUpdatePostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Title'}),
+            'content': forms.Textarea(attrs={'placeholder': 'Content'}),
+        }

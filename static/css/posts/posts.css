@@ -17,6 +17,7 @@
 .post:hover {
     transition: filter 0.2s ease-in;
     filter: brightness(90%);
+    cursor: pointer;
 }
 
 a {
@@ -39,6 +40,7 @@ a {
 
 #logout > button:hover {
     border: 1px solid black;
+    cursor: pointer;
 }
 
 #bottom {

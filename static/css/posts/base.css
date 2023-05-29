@@ -44,3 +44,7 @@ textarea {
     resize: none;
     font-family: 'Noto Sans Nandinagari', sans-serif;
 }
+
+input[type='submit']:hover {
+    cursor: pointer;
+}

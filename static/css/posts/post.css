@@ -49,7 +49,12 @@ form button {
     border: 0.1px solid black;
     margin-top: 10px;
     width: 20%;
+    min-width: 200px;
     position: relative;
     left: 50%;
     transform: translate(-50%);
+}
+
+form button:hover {
+    cursor: pointer;
 }

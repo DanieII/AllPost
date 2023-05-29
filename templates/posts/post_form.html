@@ -10,7 +10,6 @@
 {% block content %}
     <form method="post">{% csrf_token %}
         {% for element in form %}
-            {{ element.label }}
             {{ element }}
         {% endfor %}
         <input type="submit" value={{ action }}>
